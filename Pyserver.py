@@ -24,7 +24,7 @@ buffer_size = 1024
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((host, port))
-sock.listen(1)
+sock.listen(10)
 print(f'Server started on port {port}')
 
 try:
@@ -50,6 +50,7 @@ try:
                 conn.sendall(b'Motor2F LOW\n')
             else:
                 conn.sendall(b'Invalid command\n')
+
 finally:
     print("Finally")
     GPIO.cleanup()
