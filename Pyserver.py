@@ -10,6 +10,12 @@ Motor1B = 13
 Motor2F = 29 
 Motor2B = 31
 
+#StepMotor 1
+Smotor1 = 16
+Smotor2 = 18
+Smotor3 = 22
+Smotor4 = 36
+
 GPIO.setmode(GPIO.BOARD)
 # Motor 1
 GPIO.setup(Motor1F, GPIO.OUT)
@@ -17,6 +23,12 @@ GPIO.setup(Motor1B, GPIO.OUT)
 # Motor 2
 GPIO.setup(Motor2F, GPIO.OUT)
 GPIO.setup(Motor2B, GPIO.OUT)
+
+#StepMotor 1
+GPIO.setup(smotor1, GPIO.OUT)
+GPIO.setup(smotor2, GPIO.OUT)
+GPIO.setup(smotor3, GPIO.OUT)
+GPIO.setup(smotor4, GPIO.OUT)
 
 host = ''
 port = 5138
@@ -39,12 +51,20 @@ try:
             if command == 'on':
                 GPIO.output(Motor1F, GPIO.HIGH)
                 GPIO.output(Motor2F, GPIO.HIGH)
+                GPIO.output(smotor1, GPIO.HIGH)
+                GPIO.output(smotor2, GPIO.HIGH)
+                GPIO.output(smotor3, GPIO.LOW)
+                GPIO.output(smotor4, GPIO.LOW)
                 print("High")
                 conn.sendall(b'Motor1F HIGH\n')
                 conn.sendall(b'Motor2F HIGH\n')
             elif command == 'off':
                 GPIO.output(Motor1F, GPIO.LOW)
                 GPIO.output(Motor2F, GPIO.LOW)
+                GPIO.output(smotor3, GPIO.HIGH)
+                GPIO.output(smotor4, GPIO.HIGH)
+                GPIO.output(smotor1, GPIO.LOW)
+                GPIO.output(smotor3, GPIO.LOW)
                 print("Low")
                 conn.sendall(b'Motor1F LOW\n')
                 conn.sendall(b'Motor2F LOW\n')
