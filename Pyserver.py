@@ -19,17 +19,17 @@ GPIO.setup(Motor2F, GPIO.OUT)
 GPIO.setup(Motor2B, GPIO.OUT)
 
 host = ''
-port = 5000
+port = 5138
 buffer_size = 1024
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((host, port))
-s.listen(1)
+sock.listen(1)
 print(f'Server started on port {port}')
 
 try:
     while True:
-        conn, addr = s.accept()
+        conn, addr = sock.accept()
         print('Connected by', addr)
         while True:
             data = conn.recv(buffer_size)
@@ -51,5 +51,5 @@ try:
 finally:
     GPIO.cleanup()
     conn.close()
-    s.close()
+    sock.close()
     
