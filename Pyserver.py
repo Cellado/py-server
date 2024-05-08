@@ -22,7 +22,7 @@ host = ''
 port = 5000
 buffer_size = 1024
 
-sock = socket.socket(socket.AFINET, socket.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((host, port))
 s.listen(1)
 print(f'Server started on port {port}')
