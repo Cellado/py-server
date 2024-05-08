@@ -39,16 +39,19 @@ try:
             if command == 'on':
                 GPIO.output(Motor1F, GPIO.HIGH)
                 GPIO.output(Motor2F, GPIO.HIGH)
+                print("High")
                 conn.sendall(b'Motor1F HIGH\n')
                 conn.sendall(b'Motor2F HIGH\n')
             elif command == 'off':
                 GPIO.output(Motor1F, GPIO.LOW)
                 GPIO.output(Motor2F, GPIO.LOW)
+                print("Low")
                 conn.sendall(b'Motor1F LOW\n')
                 conn.sendall(b'Motor2F LOW\n')
             else:
                 conn.sendall(b'Invalid command\n')
 finally:
+    print("Finally")
     GPIO.cleanup()
     conn.close()
     sock.close()
