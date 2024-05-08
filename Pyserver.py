@@ -64,7 +64,7 @@ try:
                 GPIO.output(Smotor3, GPIO.HIGH)
                 GPIO.output(Smotor4, GPIO.HIGH)
                 GPIO.output(Smotor1, GPIO.LOW)
-                GPIO.output(Smotor3, GPIO.LOW)
+                GPIO.output(Smotor2, GPIO.LOW)
                 print("Low")
                 conn.sendall(b'Motor1F LOW\n')
                 conn.sendall(b'Motor2F LOW\n')
