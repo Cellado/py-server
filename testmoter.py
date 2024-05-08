@@ -17,7 +17,13 @@ GPIO.setup(Motor1B, GPIO.OUT)
 GPIO.setup(Motor2F, GPIO.OUT)
 GPIO.setup(Motor2B, GPIO.OUT)
 
-GPIO.output(Motor1F, GPIO.HIGH)
-GPIO.output(Motor2F, GPIO.HIGH)
+try:
+    print("testing...")
+    GPIO.output(Motor1F, GPIO.HIGH)
+    GPIO.output(Motor1B, GPIO.LOW)
+    GPIO.output(Motor2F, GPIO.HIGH)
+    GPIO.output(Motor2B, GPIO.HIGH)
+    time.sleep(10)
 
-GPIO.cleanup()
+finally:
+    GPIO.cleanup()
