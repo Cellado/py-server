@@ -27,12 +27,21 @@ class StepMotor:
 
     def move(self, steps, delay = 0.01):
         step_count = len(self.step_sequence)
-        for _ in range(abs(steps)):
-            for step in self.step_sequence:
-                self.set_step(step)
-                time.sleep(delay)
+        if steps > 0:
+            for _ in range(abs(steps)):
+                for step in self.step_sequence:
+                    self.set_step(step)
+                    time.sleep(delay)
+        else:
+            for _ in range(abs(steps)):
+                for step in reversed(self.step_sequence):
+                    self.set_step(step)
+                    time.sleep(delay)
+                    
 
     def cleanup (self):
+        for pin in self.gpio_pins:
+            GPIO.output(pin, False)
         GPIO.cleanup()
         
 
