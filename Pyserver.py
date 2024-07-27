@@ -1,34 +1,11 @@
 import socket
-
 import RPi.GPIO as GPIO
-
-# Motor 1
-Motor1F = 11
-Motor1B = 13
-
-# Motor 2
-Motor2F = 29 
-Motor2B = 31
+from stepMotor import StepMotor
 
 #StepMotor 1
-Smotor1 = 16
-Smotor2 = 18
-Smotor3 = 22
-Smotor4 = 36
+motor_pins1 = [16, 18, 22, 36]
 
-GPIO.setmode(GPIO.BOARD)
-# Motor 1
-GPIO.setup(Motor1F, GPIO.OUT)
-GPIO.setup(Motor1B, GPIO.OUT)
-# Motor 2
-GPIO.setup(Motor2F, GPIO.OUT)
-GPIO.setup(Motor2B, GPIO.OUT)
-
-#StepMotor 1
-GPIO.setup(Smotor1, GPIO.OUT)
-GPIO.setup(Smotor2, GPIO.OUT)
-GPIO.setup(Smotor3, GPIO.OUT)
-GPIO.setup(Smotor4, GPIO.OUT)
+Smotor1 = StepMotor(motor_pins1)
 
 host = ''
 port = 5138
@@ -46,28 +23,18 @@ try:
         while True:
             data = conn.recv(buffer_size)
             if not data:
+                print("invalid date... breaking connection")
+                conn.sendall(b'invalid data\n')
                 break
             command = data.decode('utf-8').strip().lower()
             if command == 'on':
-                GPIO.output(Motor1F, GPIO.HIGH)
-                GPIO.output(Motor2F, GPIO.HIGH)
-                GPIO.output(Smotor1, GPIO.HIGH)
-                GPIO.output(Smotor2, GPIO.HIGH)
-                GPIO.output(Smotor3, GPIO.HIGH)
-                GPIO.output(Smotor4, GPIO.HIGH)
+                Smotor1.move(10)
                 print("High")
-                conn.sendall(b'Motor1F HIGH\n')
-                conn.sendall(b'Motor2F HIGH\n')
+                conn.sendall(b'signal "on" recived\n')
             elif command == 'off':
-                GPIO.output(Motor1F, GPIO.LOW)
-                GPIO.output(Motor2F, GPIO.LOW)
-                GPIO.output(Smotor3, GPIO.LOW)
-                GPIO.output(Smotor4, GPIO.LOW)
-                GPIO.output(Smotor1, GPIO.LOW)
-                GPIO.output(Smotor2, GPIO.LOW)
+                Smotor1.move(10)
                 print("Low")
-                conn.sendall(b'Motor1F LOW\n')
-                conn.sendall(b'Motor2F LOW\n')
+                conn.sendall(b'signal "off" recived\n')
             else:
                 conn.sendall(b'Invalid command\n')
 
