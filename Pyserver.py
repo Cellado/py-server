@@ -39,6 +39,9 @@ try:
         while True:
             data = conn.recv(buffer_size)
             command = data.decode('utf-8').strip().lower()
+            if not data:
+                conn.sendall(b'No data recived\n')
+                break
             if command == 'on':
                 sim_move(Smotor1, 10, Smotor2, 50)
                 print("Right")
