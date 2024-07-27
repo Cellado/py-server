@@ -21,10 +21,12 @@ sock.bind((host, port))
 sock.listen(10)
 print(f'Server started on port {port}')
 
+def move_motor (motor, steps):
+    motor.move(steps)
 
-def sim_move(motor1, move_amount1, motor2, move_amount2):
-    thread1 = threading.Thread(target=move_motor, args=(motor1, move_amount1))
-    thread2 = threading.Thread(target=move_motor, args=(motor2, move_amount2))
+def sim_move(motor1, steps1, motor2, steps2):
+    thread1 = threading.Thread(target=move_motor, args=(motor1, steps1))
+    thread2 = threading.Thread(target=move_motor, args=(motor2, steps2))
     thread1.start()
     thread2.start()
     thread1.join()
