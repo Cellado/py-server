@@ -4,8 +4,10 @@ from stepMotor import StepMotor
 
 #StepMotor 1
 motor_pins1 = [16, 18, 22, 36]
+motor_pins2 = [3, 5, 7, 11]
 
 Smotor1 = StepMotor(motor_pins1)
+Smotor2 = StepMotor(motor_pins2)
 
 host = ''
 port = 5138
@@ -29,15 +31,18 @@ try:
             command = data.decode('utf-8').strip().lower()
             if command == 'on':
                 Smotor1.move(10)
+                Smotor2.move(50)
                 print("High")
                 conn.sendall(b'signal "on" recived\n')
             elif command == 'off':
                 Smotor1.move(-10)
+                Smotor2.move(-50)
                 print("Low")
                 conn.sendall(b'signal "off" recived\n')
             elif command == 'close':
                 print("closing")
                 conn.sendall(b'signal "close" recived\n')
+                GPIO.cleanup()
                 conn.close()
                 sock.close()
                 break
