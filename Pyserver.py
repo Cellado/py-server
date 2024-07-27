@@ -32,9 +32,13 @@ try:
                 print("High")
                 conn.sendall(b'signal "on" recived\n')
             elif command == 'off':
-                Smotor1.move(10)
+                Smotor1.move(-10)
                 print("Low")
                 conn.sendall(b'signal "off" recived\n')
+            elif command == 'close':
+                print("closing")
+                conn.sendall(b'signal "close" recived\n')
+                break
             else:
                 conn.sendall(b'Invalid command\n')
 
