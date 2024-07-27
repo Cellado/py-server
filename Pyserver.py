@@ -53,9 +53,9 @@ try:
             elif command == 'close':
                 print("closing")
                 conn.sendall(b'signal "close" recived\n')
-                GPIO.cleanup()
                 conn.close()
                 sock.close()
+                GPIO.cleanup()
                 break
             else:
                 conn.sendall(b'Invalid command\n')
