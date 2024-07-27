@@ -23,7 +23,7 @@ try:
         while True:
             data = conn.recv(buffer_size)
             if not data:
-                print("invalid date... breaking connection")
+                print("invalid data... breaking connection")
                 conn.sendall(b'invalid data\n')
                 break
             command = data.decode('utf-8').strip().lower()
@@ -38,6 +38,8 @@ try:
             elif command == 'close':
                 print("closing")
                 conn.sendall(b'signal "close" recived\n')
+                conn.close()
+                sock.close()
                 break
             else:
                 conn.sendall(b'Invalid command\n')
