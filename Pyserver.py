@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 import time
 from stepMotor import StepMotor
 
+#Pull on reboot test
 
 #StepMotor 1
 motor_pins1 = [16, 18, 22, 36]
