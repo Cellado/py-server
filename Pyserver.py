@@ -6,11 +6,9 @@ from stepMotor import StepMotor
 
 
 #StepMotor 1
-motor_pins1 = [16, 18, 22, 36]
-motor_pins2 = [3, 5, 7, 11]
 
-Smotor1 = StepMotor(motor_pins1)
-Smotor2 = StepMotor(motor_pins2)
+Smotor1 = StepMotor(step_pin=16, dir_pin=18)
+Smotor2 = StepMotor(step_pin=13 , dir_pin=15)
 
 host = ''
 port = 5138
@@ -22,7 +20,7 @@ sock.listen(10)
 print(f'Server started on port {port}')
 
 def move_motor (motor, steps):
-    motor.move(steps)
+    motor.move(steps, delay=0.01)
 
 def sim_move(motor1, steps1, motor2, steps2):
     thread1 = threading.Thread(target=move_motor, args=(motor1, steps1))
