@@ -23,11 +23,21 @@ class StepMotor:
             time.sleep(delay)
             GPIO.output(self.step_pin, False)
             time.sleep(delay)
-
-
                     
 
     def cleanup (self):
         GPIO.cleanup()
         
+
+
+
+if __name__ == "__main__":
+    motor = StepMotor(step_pin=16, dir_pin=18)
+    
+    try:
+        motor.move(steps=200, delay=0.01)  # Move forward 200 steps
+        time.sleep(1)
+        motor.move(steps=-200, delay=0.01)  # Move backward 200 steps
+    finally:
+        motor.cleanup()
 
