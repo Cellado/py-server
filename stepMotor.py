@@ -30,7 +30,7 @@ class StepMotor:
         
 if __name__ == "__main__":
     GPIO.setmode(GPIO.BCM)
-    motor = StepMotor(step_pin=16, dir_pin=20)
+    motor = StepMotor(step_pin=23, dir_pin=24)
     
     try:
         motor.move(steps=2000, delay=0.001)  # Move forward 200 steps
