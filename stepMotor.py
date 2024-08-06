@@ -33,6 +33,6 @@ if __name__ == "__main__":
     motor = StepMotor(step_pin=23, dir_pin=24)
     
     try:
-        motor.move(steps=2000, delay=0.001)  # Move forward 200 steps
+        motor.move(steps=2000, delay=0.01)  # Move forward 200 steps
     finally:
         motor.cleanup()
