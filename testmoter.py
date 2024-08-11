@@ -1,29 +1,41 @@
 import time
 import RPi.GPIO as GPIO
 
-# Motor 1
-Motor1F = 11
-Motor1B = 13
 
-# Motor 2
-Motor2F = 29 
-Motor2B = 31
 
-GPIO.setmode(GPIO.BOARD)
-# Motor 1
-GPIO.setup(Motor1F, GPIO.OUT)
-GPIO.setup(Motor1B, GPIO.OUT)
-# Motor 2
-GPIO.setup(Motor2F, GPIO.OUT)
-GPIO.setup(Motor2B, GPIO.OUT)
+step_pin = 23
+dir_pin = 24
+ms2_pin = 17
+ms1_pin = 27
+enable_pin = 22
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(step_pin, GPIO.OUT)
+GPIO.setup(dir_pin, GPIO.OUT)
+GPIO.setup(ms2_pin, GPIO.OUT)
+GPIO.setup(ms1_pin, GPIO.OUT)
+GPIO.setup(enable_pin, GPIO.OUT)
+
+
+def set_step(ms1, ms2):
+    GPIO.output(ms1_pin, ms1)
+    GPIO.output(ms2_pin, ms2)
+
+
+def move(steps, delay=0.01):
+    if steps > 0:
+        GPIO.output(dir_pin, True)
+    else:
+        GPIO.output(dir_pin, False)
+
+    for _ in range(abs(steps)):
+        GPIO.output(step_pin, True)
+        time.sleep(delay)
+        GPIO.output(step_pin, False)
+        time.sleep(delay)
 
 try:
-    print("testing...")
-    GPIO.output(Motor1F, GPIO.HIGH)
-    GPIO.output(Motor1B, GPIO.LOW)
-    GPIO.output(Motor2F, GPIO.HIGH)
-    GPIO.output(Motor2B, GPIO.HIGH)
-    time.sleep(10)
-
+    set_step(GPIO.HIGH, GPIO.LOW)
+    move(2000, delay=0.001)
 finally:
     GPIO.cleanup()
