@@ -18,11 +18,13 @@ GPIO.setup(enable_pin, GPIO.OUT)
 
 
 def set_step(ms1, ms2):
+    print("set step function called")
     GPIO.output(ms1_pin, ms1)
     GPIO.output(ms2_pin, ms2)
 
 
 def move(steps, delay=0.01):
+    print("move function called")
     if steps > 0:
         GPIO.output(dir_pin, True)
     else:
@@ -37,5 +39,8 @@ def move(steps, delay=0.01):
 try:
     set_step(GPIO.HIGH, GPIO.LOW)
     move(2000, delay=0.001)
+    print("finished moving")
+
 finally:
+    print("clean up")
     GPIO.cleanup()
