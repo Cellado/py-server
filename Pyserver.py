@@ -24,7 +24,7 @@ print(f'Server started on port {port}')
 
 
 def move_motor (motor, steps):
-    motor.move(steps, delay=0.0001)
+    motor.move(steps, delay=0.001)
 
 def sim_move(motor1, steps1, motor2, steps2):
     thread1 = threading.Thread(target=move_motor, args=(motor1, steps1))
