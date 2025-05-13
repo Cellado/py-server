@@ -5,18 +5,28 @@ class StepMotor:
     def __init__ (self, step_pin, dir_pin):
         self.step_pin = step_pin
         self.dir_pin = dir_pin
+        self.en_pin = en_pin
         
-        GPIO.setmode(GPIO.BCM)
+
         GPIO.setup(self.step_pin, GPIO.OUT)
         GPIO.setup(self.dir_pin, GPIO.OUT)
 
 
-    def move(self, steps, delay = 0.01):
+        GPIO.setup(self.en_pin, GPIO.OUT)
+        GPIO.output(self.en_pin, GPIO.HIGH)
+            
+            
+    def enable(self):
+        GPIO.output(self.en_pin, GPIO.LOW)
+    def disable(self):
+        GPIO.output(self.en_pin, GPIO.HIGH)
+        
 
-        if steps > 0:
-            GPIO.output(self.dir_pin, True)
-        else:
-            GPIO.output(self.dir_pin, False)
+    def move(self, steps, delay = 0.001):
+
+        self.enable()
+                
+        GPIO.output(self.dir_pin, steps > 0)
 
         for _ in range(abs(steps)):
             GPIO.output(self.step_pin, True)
@@ -24,15 +34,5 @@ class StepMotor:
             GPIO.output(self.step_pin, False)
             time.sleep(delay)
                     
-
-    def cleanup (self):
-        GPIO.cleanup()
+        self.disable()
         
-if __name__ == "__main__":
-    GPIO.setmode(GPIO.BCM)
-    motor = StepMotor(step_pin=23, dir_pin=24)
-    
-    try:
-        motor.move(steps=200, delay=0.1)  # Move forward 200 steps
-    finally:
-        motor.cleanup()
