@@ -5,12 +5,13 @@ import time
 from stepMotor import StepMotor
 
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 
-EN_PIN = 15
+
 #StepMotor 1
 
-Smotor1 = StepMotor(step_pin=16, dir_pin=18)
-Smotor2 = StepMotor(step_pin=13 , dir_pin=15)
+Smotor1 = StepMotor(step_pin=16, dir_pin=18, en_pin=22)
+Smotor2 = StepMotor(step_pin=13 , dir_pin=15, en_pin=31)
 
 host = ''
 port = 5138
@@ -21,12 +22,9 @@ sock.bind((host, port))
 sock.listen(10)
 print(f'Server started on port {port}')
 
-GPIO.output(EN_PIN, GPIO.HIGH)
 
 def move_motor (motor, steps):
-    GPIO.output(EN_PIN, GPIO.LOW)
-    motor.move(steps, delay=0.01)
-    GPIO.output(EN_PIN, GPIO.HIGH)
+    motor.move(steps, delay=0.001)
 
 def sim_move(motor1, steps1, motor2, steps2):
     thread1 = threading.Thread(target=move_motor, args=(motor1, steps1))
