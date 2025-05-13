@@ -22,7 +22,7 @@ class StepMotor:
         GPIO.output(self.en_pin, GPIO.HIGH)
         
 
-    def move(self, steps, delay = 0.001):
+    def move(self, steps, delay = 0.0001):
 
         self.enable()
                 
