@@ -45,11 +45,11 @@ try:
                 conn.sendall(b'No data recived\n')
                 break
             if command == 'on':
-                sim_move(Smotor1, 1, Smotor2, 1)
+                sim_move(Smotor1, 2, Smotor2, 1)
                 print("Right")
                 conn.sendall(b'signal "on" recived\n')
             elif command == 'off':
-                sim_move(Smotor1, -1, Smotor2, -1)
+                sim_move(Smotor1, -2, Smotor2, -1)
                 print("Left")
                 conn.sendall(b'signal "off" recived\n')
             elif command == 'close':
